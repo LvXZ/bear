@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="shortcut icon" href="../static/img/bear.png" th:href="@{img/bear.png}" type="image/x-icon"/>
+	<link rel="stylesheet" type="text/css" href="../static/css/userInformation.css" th:href="@{css/userInformation.css}">
+</head>
+<body onload="checkCookies()">
+	<div id="dynamicNav" class="nav-wrp">
+		<ul class="navbar-left">
+			<li class="dynamic">
+				<a href="/index" class="logoMark"><em>Bear Beauty</em></a>
+			</li>
+			<li class="dynamic">
+				<a href="/index" class="indexLink">首页</a>
+			</li>
+			<li class="dynamic products">
+				<a href="#" class="product">产品</a>
+				<ul class="goodsType">
+					<li>你好</li>
+					<li>这是</li>
+					<li>做测试用的</li>
+					<li>高度</li>
+					<li>没有问题</li>
+				</ul>
+			</li>
+		</ul>
+		<ul class="navbar-right">
+			<li class="dynamic logOut">
+				<img class="AfterUserImg" src="#"/>
+				<ul class="sonMenu" id="nav2">
+					<li>
+						<a href="#">个人信息</a>
+					</li>
+					<li>
+						<a href="#">我的店铺</a>
+					</li>
+					<li>
+						<a href="#" onclick="userExist()">安全退出</a>
+					</li>
+				</ul>
+			</li>
+			<li class="dynamic">
+				<a href="#" class="like"><i class="iconfont-2">&#xe67b;</i></a>
+			</li>
+			<li class="dynamic">
+				<a href="#" class="order"><i class="iconfont-2">&#xe669;</i></a>
+			</li>
+		</ul>
+	</div>
+
+	<div class="main-box">
+		<ul class="info-main">
+			<li class="title">个人信息</li>
+			<li>
+				<hr class="liner">
+			</li>
+			<li class="inforType">
+				<input type="text" class="readonly" name="userID" id="user-id" readonly="readonly">
+			</li>
+			<li class="inforType">
+				<input type="text" name="userName" id="user-name" >
+			</li>
+			<li class="inforType">
+				<input type="text" name="userEmail" id="user-email" >
+			</li>
+			<li class="userSex">
+				<input type="radio" name="sex" id="user-man" value="1">男
+				<input type="radio" name="sex" id="user-woman" value="0">女
+			</li>
+			<li class="inforType">
+				<input type="text" name="address" id="user-address" >
+			</li>
+			<li>
+				<img src="#" class="userImage" id="user-image">
+				<button class="btn-change" onclick="Register_uploadImage()">更换头像</button>
+				<button class="btn-img-save" onclick="userModifyImage()">保存头像</button>
+				<input type="file" id="reg-user-file" name="reg-user-file" style="display: none" accept="">
+			</li>
+			<li class="save">
+				<input type="submit" name="" value="保存" onclick="userModifyInfo()">
+			</li>
+		</ul>
+		<ul class="address-main">
+			<li class="title">收货地址</li>
+			<li>
+				<hr class="liner">
+			</li>
+		</ul>
+		<ul class="order-main" id="order-main">
+			<li class="title">我的订单</li>
+			<li>
+				<hr class="liner">
+			</li>
+
+
+		</ul>
+		<ul class="like-main" id="like-main">
+			<li class="title">我的收藏</li>
+			<li>
+				<hr class="liner">
+			</li>
+
+		</ul>
+	</div>
+	<div class="menu-box">
+		<ul class="info-menu">
+			<span class="title">我的</span>
+			<li class="info-site" id="active">个人信息</li>
+			<li class="myaddress">收货地址</li>
+			<li class="myOrder">订单</li>
+			<li class="myOrder">收藏</li>
+		</ul>
+	</div>
+</body>
+<script type="text/javascript" src="../static/js/jquery-3.2.1.min.js" th:src="@{js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" src="../static/js/userInformation.js" th:src="@{js/userInformation.js}"></script>
+<script src="../static/js/js.cookie.js" th:src="@{js/js.cookie.js}"></script>
+<script type="text/javascript" src="../static/js/tools.js" th:src="@{js/tools.js}"></script>
+</html>

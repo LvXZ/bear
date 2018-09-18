@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group3.dao.OrderDAO">
+
+
+  <resultMap id="BaseResultMap" type="com.group3.entity.Order">
+    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="deal" jdbcType="INTEGER" property="deal" />
+    <result column="goods_id" jdbcType="INTEGER" property="goodsId" />
+    <result column="purchase_number" jdbcType="INTEGER" property="purchaseNumber" />
+    <result column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="user_telephone" jdbcType="VARCHAR" property="userTelephone" />
+    <result column="total_price" jdbcType="DOUBLE" property="totalPrice" />
+  </resultMap>
+
+
+  <resultMap id="GoodsResultMap" type="com.group3.entity.Goods">
+    <id column="good_id" jdbcType="INTEGER" property="goodId" />
+    <result column="good_name" jdbcType="VARCHAR" property="goodName" />
+    <result column="price" jdbcType="DOUBLE" property="price" />
+    <result column="sales" jdbcType="INTEGER" property="sales" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="shop_id" jdbcType="VARCHAR" property="shopId" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="invenory" jdbcType="INTEGER" property="invenory" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="priority" jdbcType="INTEGER" property="priority" />
+  </resultMap>
+
+  <resultMap id="ShopResultMap" type="com.group3.entity.Shop">
+    <id column="shop_id" jdbcType="INTEGER" property="shopId" />
+    <result column="owner_id" jdbcType="VARCHAR" property="ownerId" />
+    <result column="shop_name" jdbcType="VARCHAR" property="shopName" />
+    <result column="category" jdbcType="VARCHAR" property="category" />
+    <result column="id_card" jdbcType="VARCHAR" property="idCard" />
+    <result column="bank_account" jdbcType="VARCHAR" property="bankAccount" />
+    <result column="logistics" jdbcType="VARCHAR" property="logistics" />
+    <result column="introduction" jdbcType="VARCHAR" property="introduction" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="priority" jdbcType="VARCHAR" property="priority" />
+  </resultMap>
+
+  <resultMap id="UserResultMap" type="com.group3.entity.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="bloodtype" jdbcType="VARCHAR" property="bloodtype" />
+    <result column="deliveryaddress" jdbcType="VARCHAR" property="deliveryaddress" />
+    <result column="nation" jdbcType="VARCHAR" property="nation" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+  </resultMap>
+
+  <resultMap id="OrderResultMap" type="com.group3.entity.Order">
+
+    <id column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="deal" jdbcType="INTEGER" property="deal" />
+    <result column="purchase_number" jdbcType="INTEGER" property="purchaseNumber" />
+    <result column="total_price" jdbcType="DOUBLE" property="totalPrice" />
+    <association property="goodsObject" column="goods_id" resultMap="GoodsResultMap"/>
+    <association property="shopObject" column="shop_id" resultMap="ShopResultMap"/>
+    <association property="UserObject" column="user_telephone" resultMap="UserResultMap"/>
+  </resultMap>
+
+
+  <sql id="Base_Column_List">
+    order_id, deal, goods_id, purchase_number, shop_id, user_telephone, total_price
+  </sql>
+
+  <sql id="Base_Column_MoreList">
+    goods.*, orders.*, shop.*, userinfo.*
+  </sql>
+
+  <select id="selectByOrderUserPhone" parameterType="java.lang.String" resultMap="OrderResultMap">
+    select
+    <include refid="Base_Column_MoreList" />
+    from goods, orders, shop, userinfo
+    where orders.user_telephone = #{userPhone,jdbcType=VARCHAR}
+    AND orders.goods_id = goods.good_id
+    AND orders.shop_id = shop.shop_id
+    AND orders.user_telephone = userinfo.telephone
+  </select>
+
+  <select id="selectByShopOwner" parameterType="java.lang.String" resultMap="OrderResultMap">
+    select
+    <include refid="Base_Column_MoreList" />
+    from goods, orders, shop, userinfo
+    where shop.owner_id = #{ownerId,jdbcType=VARCHAR}
+    AND orders.shop_id = shop.shop_id
+    AND orders.goods_id = goods.good_id
+    AND orders.user_telephone = userinfo.telephone
+  </select>
+
+
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from orders
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </select>
+
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from orders
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </delete>
+
+  <insert id="insertOrder" useGeneratedKeys="true" keyProperty="orderId"
+          keyColumn="order_id" parameterType="com.group3.entity.Order">
+    insert into orders ( deal, goods_id,
+      purchase_number, shop_id, user_telephone, 
+      total_price)
+    values ( #{deal,jdbcType=INTEGER}, #{goodsId,jdbcType=INTEGER},
+      #{purchaseNumber,jdbcType=INTEGER}, #{shopId,jdbcType=INTEGER}, #{userTelephone,jdbcType=VARCHAR}, 
+      #{totalPrice,jdbcType=DOUBLE})
+  </insert>
+
+  <insert id="insertSelective" parameterType="com.group3.entity.Order">
+    insert into orders
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        order_id,
+      </if>
+      <if test="deal != null">
+        deal,
+      </if>
+      <if test="goodsId != null">
+        goods_id,
+      </if>
+      <if test="purchaseNumber != null">
+        purchase_number,
+      </if>
+      <if test="shopId != null">
+        shop_id,
+      </if>
+      <if test="userTelephone != null">
+        user_telephone,
+      </if>
+      <if test="totalPrice != null">
+        total_price,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="orderId != null">
+        #{orderId,jdbcType=INTEGER},
+      </if>
+      <if test="deal != null">
+        #{deal,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseNumber != null">
+        #{purchaseNumber,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null">
+        #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="userTelephone != null">
+        #{userTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=DOUBLE},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.group3.entity.Order">
+    update orders
+    <set>
+      <if test="deal != null">
+        deal = #{deal,jdbcType=INTEGER},
+      </if>
+      <if test="goodsId != null">
+        goods_id = #{goodsId,jdbcType=INTEGER},
+      </if>
+      <if test="purchaseNumber != null">
+        purchase_number = #{purchaseNumber,jdbcType=INTEGER},
+      </if>
+      <if test="shopId != null">
+        shop_id = #{shopId,jdbcType=INTEGER},
+      </if>
+      <if test="userTelephone != null">
+        user_telephone = #{userTelephone,jdbcType=VARCHAR},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice,jdbcType=DOUBLE},
+      </if>
+    </set>
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.group3.entity.Order">
+    update orders
+    set deal = #{deal,jdbcType=INTEGER},
+      goods_id = #{goodsId,jdbcType=INTEGER},
+      purchase_number = #{purchaseNumber,jdbcType=INTEGER},
+      shop_id = #{shopId,jdbcType=INTEGER},
+      user_telephone = #{userTelephone,jdbcType=VARCHAR},
+      total_price = #{totalPrice,jdbcType=DOUBLE}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
+</mapper>

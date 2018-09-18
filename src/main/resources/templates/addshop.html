@@ -1,0 +1,111 @@
+
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="shortcut icon" href="../static/img/bear.png" th:href="@{img/bear.png}" type="image/x-icon"/>
+    <link rel="stylesheet" type="text/css" href="../static/css/addshop.css" th:href="@{css/addshop.css}">
+    <link rel="stylesheet" type="text/css" href="../static/css/button.css" th:href="@{/css/button.css}">
+</head>
+<body onload="checkCookies()">
+<div id="dynamicNav" class="nav-wrp">
+    <ul class="navbar-left">
+        <li class="dynamic">
+            <a href="/index" class="logoMark"><em>Bear Beauty</em></a>
+        </li>
+        <li class="dynamic">
+            <a href="/index" class="indexLink">首页</a>
+        </li>
+        <li class="dynamic products">
+            <a href="#" class="product">产品</a>
+            <ul class="goodsType">
+                <li>你好</li>
+                <li>这是</li>
+                <li>做测试用的</li>
+                <li>高度</li>
+                <li>没有问题</li>
+            </ul>
+        </li>
+    </ul>
+    <ul class="navbar-right">
+        <li class="dynamic logOut">
+            <img class="AfterUserImg" src="#"/>
+            <ul class="sonMenu" id="nav2">
+                <li>
+                    <a href="#">个人信息</a>
+                </li>
+                <li>
+                    <a href="#" onclick="userExist()">安全退出</a>
+                </li>
+            </ul>
+        </li>
+        <li class="dynamic">
+            <a href="#" class="like"><i class="iconfont-2" onclick="myCollect(this)">&#xe669;</i></a>
+        </li>
+        <li class="dynamic">
+            <a href="#" class="order"><i class="iconfont-2" onclick="myOrders(this)">&#xe67b;</i></a>
+        </li>
+    </ul>
+</div>
+
+<div class="main-box">
+
+    <ul class="shop-register">
+        <li class="title">店铺注册</li>
+        <li>
+            <hr class="liner">
+        </li>
+        <li class="inforType">
+            <input type="text" name="reg-shop-telephone" id="reg-shop-telephone" placeholder="拥有者" class="readonly" readonly="readonly"><br/>
+        </li>
+        <li class="inforType">
+            <input type="text" name="reg-shop-name" id="reg-shop-name" placeholder="商店名称"><br/>
+        </li>
+        <li class="inforType">
+            <input type="text" name="reg-shop-category" id="reg-shop-category" placeholder="商店种类"><br/>
+        </li>
+        <li class="inforType">
+            <input type="text" name="reg-shop-card" id="reg-shop-card" placeholder="idCard"><br/>
+        </li>
+        <li class="inforType">
+            <input type="text" name="reg-shop-logistics" id="reg-shop-logistics" placeholder="物流公司"><br/>
+        </li>
+        <li class="inforType">
+            <input type="text" name="reg-shop-bank" id="reg-shop-bank" placeholder="银行账户"><br/>
+        </li>
+        <li class="inforType">
+            <input type="text" name="reg-shop-introduction" id="reg-shop-introduction" placeholder="商店介绍"><br/>
+        </li>
+
+
+        <li>
+            <img src="#" class="userImage" id="show-shop-img-1" name="show-shop-img-1">
+            <input type="file" id="reg-shop-file" name="reg-shop-file" style="display: none" accept="">
+            <button type="button" class="btn btn-sm button-location" id="btn-img-1" name="btn-img-1" onclick="getShopImage()">获取图片</button>
+        </li>
+
+
+        <li class="save">
+            <input type="submit" name="" id="shop-register" value="注册店铺" onclick="shopRegister()">
+        </li>
+
+    </ul>
+
+</div>
+
+</body>
+<script type="text/javascript" src="../static/js/jquery-3.2.1.min.js" th:src="@{js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" src="../static/js/addshop.js" th:src="@{js/addshop.js}"></script>
+<script src="../static/js/js.cookie.js" th:src="@{js/js.cookie.js}"></script>
+<script type="text/javascript" src="../static/js/tools.js" th:src="@{js/tools.js}"></script>
+
+<script>
+
+
+
+</script>
+
+</html>

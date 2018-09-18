@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.group3.dao.UserInfoDAO">
+  <resultMap id="BaseResultMap" type="com.group3.entity.UserInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="image" jdbcType="VARCHAR" property="image" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="bloodtype" jdbcType="VARCHAR" property="bloodtype" />
+    <result column="deliveryaddress" jdbcType="VARCHAR" property="deliveryaddress" />
+    <result column="nation" jdbcType="VARCHAR" property="nation" />
+    <result column="province" jdbcType="VARCHAR" property="province" />
+    <result column="city" jdbcType="VARCHAR" property="city" />
+  </resultMap>
+
+  <sql id="Base_Column_One">
+  	 name, password, telephone, image
+  </sql>
+
+  <sql id="Base_Column_List">
+    id, telephone, name, password, image, email, sex, bloodtype, deliveryaddress, nation, 
+    province, city
+  </sql>
+
+  <select id="selectUserExistByPhone" parameterType="String" resultMap="BaseResultMap">
+    select name
+    from userinfo
+    where telephone = #{telephone,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectUserPasswordByPhone" parameterType="String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_One" />
+    from userinfo
+    where telephone = #{telephone,jdbcType=INTEGER}
+  </select>
+
+  <select id="selectUserInfoByPhone" parameterType="String" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from userinfo
+    where telephone = #{telephone,jdbcType=INTEGER}
+  </select>
+
+
+  <insert id="insertUserInfo" useGeneratedKeys="true" keyProperty="id"
+          keyColumn="id" parameterType="com.group3.entity.UserInfo">
+    insert into userinfo (telephone, name,
+      password, image, email, 
+      sex, bloodtype, deliveryaddress, 
+      nation, province, city
+      )
+    values ( #{telephone,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+      #{password,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{bloodtype,jdbcType=VARCHAR}, #{deliveryaddress,jdbcType=VARCHAR}, 
+      #{nation,jdbcType=VARCHAR}, #{province,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}
+      )
+  </insert>
+
+
+
+  <update id="updateUserInfoByPhone" parameterType="com.group3.entity.UserInfo">
+    update userinfo
+    <set>
+      <if test="image != null">
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="bloodtype != null">
+        bloodtype = #{bloodtype,jdbcType=VARCHAR},
+      </if>
+      <if test="deliveryaddress != null">
+        deliveryaddress = #{deliveryaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="nation != null">
+        nation = #{nation,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null">
+        province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null">
+        city = #{city,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where telephone = #{telephone,jdbcType=VARCHAR}
+  </update>
+
+  <update id="updatePasswordByPhone" parameterType="com.group3.entity.UserInfo">
+    update userinfo
+    set password = #{password,jdbcType=VARCHAR}
+    where telephone = #{telephone,jdbcType=VARCHAR}
+  </update>
+
+
+</mapper>

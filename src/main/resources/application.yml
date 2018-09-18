@@ -1,0 +1,63 @@
+# 后端配置
+server:
+  port: 8080
+  tomcat:
+    uri-encoding: UTF-8
+
+spring:
+  devtools:
+    restart:
+      enabled: true
+      additional-paths: src/main
+      exclude:
+  http:
+    encoding:
+      force: false
+      charset: UTF-8
+      enabled: true
+
+  messages:
+    encoding: UTF-8
+
+  mvc:
+    static-path-pattern: /**
+  thymeleaf:
+    cache: true
+    prefix: classpath:/templates/ #对文件夹进行拦截
+    suffix: .html                 #对文件格式进行限制
+    mode: HTML5
+    encoding: UTF-8
+
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://106.14.216.113:3306/shop?characterEncoding=utf8&useSSL=true
+    username: ENC(sC1dmdcwRXLZqBHGfLlbNw==)
+    password: ENC(bV1CgjQhNT0wV0IurLDRDaw3Qn/Cnaxq)
+
+#aliyun:106.14.216.113
+
+mybatis:
+  mapper-locations: classpath:mapper/*.xml
+  type-aliases-package: com.group3.entity
+  configuration:
+    mapUnderscoreToCamelCase: true
+    useColumnLabel: true
+
+
+redis:
+  host: 106.14.216.113
+  password: ENC(SW6lNpuxnGbbbZnBw3YKQD2icmbER5sG)
+  port: 6379
+  timeout: 30
+  poolMaxTotal: 100
+  poolMaxIdle: 100
+  poolMaxWait: 30
+
+logging:
+  config: classpath:config/logback.xml
+
+jasypt:
+  encryptor:
+    password: lvxz
+
+#系统密码均加密，预知系统秘密，请联系lvxz

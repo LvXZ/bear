@@ -1,0 +1,97 @@
+*{
+	margin:0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+.log-box{
+	position: fixed;
+	top: 100px;
+	left: 50%;
+	width: 600px;
+	height: 350px;
+	background-color: #ebeced;
+	border-radius: 20px;
+	border: 1px solid #ebeced;
+	margin-left: -300px;
+	display: none;
+	z-index: 99;
+}
+.log-box .log-menu{
+	width: 100%;
+	height: 100%;
+	margin: 25px 30px;
+}
+.log-box .log-menu li{
+	margin-bottom: 20px;
+}
+.label-log{
+	color: #9a9a9a;
+	font-size: 18px;
+}
+.log-ipt input{
+	border: none;
+    color: #79acd9;
+    width: 265px;
+    height: 44px;
+    line-height: 44px;
+    text-indent: 16px;
+    /*outline: none;*/
+}
+.btn-log input{
+	width: 220px;
+	height: 30px;
+	color: #fff;
+    line-height: 32px;
+    cursor: pointer;
+    border:none;
+    border-radius: 15px;
+    background-color: #97ceec;
+    margin-left: 158px;
+    outline: none;
+}
+.btn-log input:hover{
+	background-color: #50c0ed;
+}
+.label-pwd{
+	color:#588cc7;
+	font-size: 14px;
+	padding: 10px;
+	width: 100px;
+	margin-left: 220px;
+}
+.liner{
+	padding: 20px;
+}
+.liner hr{
+	width: 490px;
+}
+.regEntr{
+	margin-left: 200px;
+}
+li.regEntr:hover{
+	font-weight: bold;
+}
+.regEntr a{
+	vertical-align: middle;
+	line-height: 30px;
+	color: #50c0ed;
+}
+.bgPic{
+	display: inline-block;
+	line-height: 30px;
+}
+.regEntr a .logPic{
+	vertical-align: middle;
+	width: 90px;
+	height: 22px;
+	background-repeat: no-repeat;
+	background-image: url('../img/logo.png');
+}
+.regEntr a .yjtPic{
+	display: inline-block;
+	width: 6px;
+	height: 9px;
+	background-repeat: no-repeat;
+	background-image: url('../img/yjt.png');
+}

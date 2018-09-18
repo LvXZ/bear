@@ -1,0 +1,99 @@
+*{
+	margin:0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+.reg-box{
+	position: fixed;
+	top: 100px;
+	left: 50%;
+	width: 600px;
+	height: 500px;
+	background-color: #ebeced;
+	border-radius: 20px;
+	border: 1px solid #ebeced;
+	margin-left: -300px;
+	display: none;
+	z-index: 99;
+}
+.reg-box .reg-menu{
+	width: 100%;
+	height: 100%;
+	margin: 25px 30px;
+}
+.reg-box .reg-menu li{
+	margin-bottom: 20px;
+}
+.col{
+	color: #9a9a9a;
+	font-size: 18px;
+}
+.col input{
+	border: none;
+    color: #79acd9;
+    width: 265px;
+    height: 44px;
+    line-height: 44px;
+    text-indent: 16px;
+}
+.btn-reg input{
+	width: 220px;
+	height: 30px;
+	color: #fff;
+    line-height: 32px;
+    cursor: pointer;
+    border:none;
+    border-radius: 15px;
+    background-color: #97ceec;
+    margin-left: 162px;
+    outline: none;
+}
+.btn-reg input:hover{
+	background-color: #50c0ed;
+}
+.label-pact{
+	font-size: 14px;
+	padding: 10px;
+	width: 200px;
+	margin-left: 163px;
+}
+.label-pact a{
+	color: #50c0ed;
+}
+.liner{
+	padding: 20px;
+}
+.liner hr{
+	width: 490px;
+}
+.logEntr{
+	margin-left: 200px;
+}
+li.logEntr a:hover{
+	font-weight: bold;
+}
+.logEntr a{
+	vertical-align: middle;
+	line-height: 30px;
+	color: #50c0ed;
+}
+.bgPic{
+	display: inline-block;
+	line-height: 30px;
+}
+.logPic{
+	vertical-align: middle;
+	width: 90px;
+	height: 22px;
+	background-repeat: no-repeat;
+	background-image: url('../img/logo.png');
+}
+.yjtPic{
+	display: inline-block;
+	width: 6px;
+	height: 9px;
+	background-repeat: no-repeat;
+	background-image: url('../img/yjt.png');
+	margin-left: 5px;
+}

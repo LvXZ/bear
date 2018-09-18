@@ -1,0 +1,7 @@
+.top{
+	width: 100%;
+	height: 750px;
+	background-image: url("../img/bg.png");
+	background-repeat: no-repeat;
+	background-size: 100% 750px;
+}

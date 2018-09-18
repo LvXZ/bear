@@ -1,0 +1,362 @@
+*{
+	margin:0;
+	padding: 0;
+	list-style: none;
+	text-decoration: none;
+}
+a{
+	color: #fff;
+}
+.top{
+	width: 100%;
+	height: 750px;
+	background-image: url("../img/bg.png");
+	background-repeat: no-repeat;
+	background-size: 100% 750px;
+}
+.bottom{
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	color: #fff;
+}
+.bottom .search-box{
+	position: relative;
+	left: 50%;
+	width: 1000px;
+	height:60px;
+	transform: translate(-50%, 0);
+	border:1px solid #FF9999;
+	border-radius: 30px;
+}
+.bottom .search-box .searchPic{
+	display: inline-block;
+	width: 100px;
+	height: 60px;
+	background-color: #171717;
+	border-top-left-radius: 30px;
+	border-bottom-left-radius: 30px;
+	background-image: url('../img/search.png');
+	background-size: 35px 35px;
+	background-repeat: no-repeat;
+	background-position: 50% 50%;
+}
+.bottom .search-box #searchSpot{
+	position: absolute;
+	top: 0;
+	right: 0;
+	width: 900px;
+	height: 60px;
+	font-size: 20px;
+	border:none;
+	outline:none;
+	color:#FF9999;
+	background-color: #171717;
+	border-top-right-radius: 30px;
+	border-bottom-right-radius: 30px;
+}
+.log-box .log-menu .label-pwd a{
+	color:#588cc7;
+}
+.nav-wrp{
+	position: relative;
+	width: 100%;
+	height: 50px;
+	background-color: #4f4e4e;
+	color: #fff;
+	text-align: center;
+	font-size: 14px;
+}
+.nav-wrp .navbar-left{
+	float: left;
+	height: 100%;
+	width: 50%;
+}
+.nav-wrp .navbar-left>li{
+	float: left;
+	height: 100%;
+	width: 70px;
+	line-height: 50px;
+}
+.cover{
+	position: absolute;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: black;
+	opacity: 0.5;
+	z-index: 98;
+	display: none;
+}
+.signoff a{
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 50px;
+	height: 50px;
+	line-height: 50px;
+	text-align: center;
+	font-size: 30px;
+	color: #000;
+}
+.signoff a:hover{
+	font-weight: bold;
+}
+.log-tag{
+	position: absolute;
+	right: 20px;
+	top: 7px;
+	width: 100px;
+	height: 35px;
+	line-height: 35px;
+	border:1px solid #fff;
+	border-radius: 20px;
+	font-size: 14px;
+}
+.log-tag a{
+	margin:0 5px;
+}
+.nav-wrp .navbar-left>li a{
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+}
+.nav-wrp .navbar-left>li:nth-child(1) a:hover{
+	color: #f3a7a7;
+}
+.nav-wrp .navbar-left>li.dynamic:not(:first-child) a:hover{
+	background-color: #474646;
+	color:#FF9999;
+}
+.nav-wrp .navbar-left>li:nth-child(1){
+	width: 100px;
+	margin-left: 50px;
+	margin-right: 30px;
+}
+.nav-wrp .navbar-left>li .logoMark{
+	font-size: 16px;
+	color: #FF9999;
+}
+.nav-wrp .navbar-right{
+	float: left;
+	height: 100%;
+	width: 50%;
+	display: none;
+}
+
+/*产品二三级菜单*/
+.products{
+	position: relative;
+}
+.goodsType{
+	position: absolute;
+	left: 0;
+	bottom: -225px;
+	width: 160px;
+	height: 225px;
+	background-color: #474646;
+	display: none;
+}
+.products .goodsType>li{
+	position: relative;
+	padding-right: 25px;
+	width: 135px;
+	height: 45px;
+	color:#fff;
+	cursor: pointer;
+	text-align: right;
+	font-size: 14px;
+}
+.products .goodsType>li::before{
+	position: absolute;
+	left: 0;
+	content:"";
+	width: 5px;
+	height: 100%;
+	background-color: #2cbaf5;
+	display: none;
+}
+.products .goodsType>li:hover::before{
+	display: block;
+}
+.products .goodsType>li:hover{
+	background-color: #4d4b4b;
+}
+
+.nav-wrp .navbar-right>li{
+	float: right;
+	height: 100%;
+	width: 80px;
+	line-height: 50px;
+}
+.nav-wrp .navbar-right>li.logOut{
+	width: 100px;
+}
+.nav-wrp .navbar-right>li:nth-child(1){
+	margin-right: 30px;
+}
+.nav-wrp .navbar-right>li:nth-child(3){
+	position: relative;
+}
+.nav-wrp .navbar-right .logOut{
+	position: relative;
+}
+#logUserImg{
+	display: inline-block;
+	height: 50px;
+	width: 50px;
+	background-color: red;
+}
+.AfterUserImg{
+	display: inline-block;
+	width: 30px;
+	height:30px;
+	margin: 10px auto 0;
+	cursor: pointer;
+}
+.sonMenu#nav1,.sonMenu#nav2{
+	position: absolute;
+	left: 0;
+	bottom: -150px;
+	width: 100px;
+	height: 150px;
+	background-color: #474646;
+	line-height: 50px;
+	display: none;
+}
+.sonMenu#nav1>li,.sonMenu#nav2>li{
+	width: 100%;
+	height: 50px;
+	text-align: center;
+	line-height: 50px;
+	margin:0;
+}
+.nav-wrp .navbar-right>li a{
+	width: 100%;
+	height: 100%;
+	display: inline-block;
+}
+.nav-wrp .navbar-right>li.dynamic a:hover{
+	background-color: #474646;
+	color: #FF9999;
+}
+
+/*商品展示区*/
+
+#goods-stage{
+	position: relative;
+	width: 980px;
+	/*border:1px solid red;*/
+	margin:50px auto;
+}
+#goods-stage #col-left{
+	display: inline-block;
+	position: relative;
+	left: 0;
+	width: 490px;
+	/*background-color: blue;*/
+}
+#goods-stage #col-right{
+	display: inline-block;
+	position: absolute;
+	right: 0;
+	width: 490px;
+	/*background-color: pink;*/
+}
+.item{
+	color: black;
+	width: 450px;
+	height: 450px;
+	padding: 40px 20px 0;
+	/*border:1px solid red;*/
+}
+.son{
+	position: relative;
+	width: 100%;
+	height: 100%;
+	background-color: snow;
+}
+.good{
+	width: 100%;
+	height: 80%;
+	background-color: green;
+	cursor: pointer;
+}
+.goodname{
+	position: absolute;
+	bottom:45px;
+	left: 25px;
+	display: inline-block;
+	line-height: 35px;
+	height: 35px;
+	width: 400px;
+	color: black;
+	font-size: 14px;
+	overflow:hidden;
+	white-space: nowrap;
+	text-overflow:ellipsis;
+	cursor: pointer;
+}
+.price{
+	position: absolute;
+	bottom:5px;
+	left: 25px;
+	display: inline-block;
+	line-height: 35px;
+	height: 35px;
+	width: 100px;
+	color: red;
+	font-size: 20px;
+}
+.input-group-addon{
+	position: absolute;
+	bottom:5px;
+	right: 25px;
+	display: inline-block;
+	height: 28px;
+	width: 20px;
+	cursor: pointer;
+}
+
+
+
+
+@font-face {
+	font-family: 'iconfont';  /* project id 821905 */
+	src: url('//at.alicdn.com/t/font_821905_q7qevue138.eot');
+	src: url('//at.alicdn.com/t/font_821905_q7qevue138.eot?#iefix') format('embedded-opentype'),
+	url('//at.alicdn.com/t/font_821905_q7qevue138.woff') format('woff'),
+	url('//at.alicdn.com/t/font_821905_q7qevue138.ttf') format('truetype'),
+	url('//at.alicdn.com/t/font_821905_q7qevue138.svg#iconfont') format('svg');
+}
+
+
+.iconfont {/*对阿里图标进行修饰*/
+	color: red;
+    font-family:"iconfont" !important;
+	font-size: x-large;
+    font-style:normal;
+    /* font-weight: bold;!*加粗*!*/
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.iconfont-3 {/*对阿里图标进行修饰*/
+	color: red;
+	font-family:"iconfont" !important;
+	font-size: 50px;
+	font-style:normal;
+	/* font-weight: bold;!*加粗*!*/
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+.iconfont-2 {/*对阿里图标进行修饰*/
+	color: white;
+	font-family:"iconfont" !important;
+	font-size: x-large;
+	font-style:normal;
+	/* font-weight: bold;!*加粗*!*/
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}

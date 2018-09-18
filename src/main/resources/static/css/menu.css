@@ -1,0 +1,69 @@
+
+#menu {
+	float: none;
+}
+
+
+#menu>ul>li {
+	position: relative;
+	
+}
+
+#menu>ul>li>ul {
+	position: absolute;
+	top : 31px;
+}
+
+#menu>ul  li {
+	float: left; width : 150px;
+	height: 30px;
+	line-height:30px;
+	margin: 0px;
+	border: 1px solid rgb(138,43,226);
+	background: rgb(138,43,226);
+	text-align: left;
+	width: 150px;
+}
+
+#menu ul li{
+    text-align : center; list-style-type : none;
+	font: 15px arial, sans-serif;
+	color: white;
+	list-style-type: none;
+	text-align: center;
+	line-height:30px;
+}
+
+
+#menu ul li ul {
+	display: none;
+}
+
+#menu ul li:hover ul {
+	display: block;
+	cursor: pointer;
+}
+
+
+#meun1 ul li{
+    text-align : center; list-style-type : none;
+	font: 15px arial, sans-serif;
+	color: white;
+	list-style-type: none;
+	text-align: center;
+	line-height:30px;
+	margin:28px;
+}
+
+#meun3 ul li{
+	float: left; width : 150px;
+	height: 30px;
+	line-height:30px;
+	text-align: center;
+	border: 1px solid rgb(138,43,226);
+	background: white;
+	width: 150px;
+	list-style: none;
+}
+
+

@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<link rel="shortcut icon" href="../static/img/bear.png" th:href="@{img/bear.png}" type="image/x-icon"/>
+	<link rel="stylesheet" type="text/css" href="../static/css/login.css" th:href="@{css/login.css}">
+	<link rel="stylesheet" type="text/css" href="../static/css/index.css" th:href="@{css/index.css}">
+	<link rel="stylesheet" type="text/css" href="../static/css/reg.css" th:href="@{css/reg.css}">
+	<link rel="stylesheet" type="text/css" href="../static/css/detail.css" th:href="@{css/detail.css}">
+	<link rel="stylesheet" type="text/css" href="../static/css/button.css" th:href="@{/css/button.css}">
+
+</head>
+<body onload="checkCookies()">
+<div class="wrapper">
+	<div class="top">
+		<div class="nav-wrp" style="background-color: transparent;">
+			<ul class="navbar-left">
+				<li>
+					<a href="/index" class="logoMark"><em>Bear Beauty</em></a>
+				</li>
+				<li>
+					<a href="/index" class="indexLink">首页</a>
+				</li>
+				<li class="products">
+					<a href="#" class="product">产品</a>
+					<ul class="goodsType">
+						<li>你好</li>
+						<li>这是</li>
+						<li>做测试用的</li>
+						<li>高度</li>
+						<li>没有问题</li>
+					</ul>
+				</li>
+			</ul>
+			<div class="log-tag">
+				<a href="#" class="loginMark">登录</a>|
+				<a href="#" class="regMark">注册</a>
+			</div>
+			<ul class="navbar-right">
+				<li class="logOut">
+					<img class="AfterUserImg" src="#"/>
+					<ul class="sonMenu" id="nav1">
+						<li>
+							<a href="/userinfo">个人中心</a>
+						</li>
+						<li>
+							<a href="/shoper">我的店铺</a>
+						</li>
+						<li>
+							<a href="#" onclick="userExist()">安全退出</a>
+						</li>
+					</ul>
+				</li>
+				<li>
+					<a href="javascript:void(0)" class="like" onclick="myCollect()"><i class="iconfont-2">&#xe67b;</i></a>
+				</li>
+				<li>
+					<a href="javascript:void(0)" class="order" onclick="myOrders()"><i class="iconfont-2">&#xe669;</i></a>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="bottom">
+		<div class="search-box">
+			<span class="searchPic"></span>
+			<form>
+				<input type="text" name="searchSpot" id="searchSpot" placeholder="搜索美妆、品牌">
+			</form>
+		</div>
+		<div id="goods-stage">
+			<div id="col-left">
+
+			</div>
+			<div id="col-right">
+
+			</div>
+		</div>
+	</div>
+</div>
+<div id="dynamicNav" class="nav-wrp" style="display: none;position: fixed;top: 0;">
+	<ul class="navbar-left">
+		<li class="dynamic">
+			<a href="index.html" class="logoMark"><em>Bear Beauty</em></a>
+		</li>
+		<li class="dynamic">
+			<a href="index.html" class="indexLink">首页</a>
+		</li>
+		<li class="dynamic products">
+			<a href="#" class="product">产品</a>
+			<ul class="goodsType">
+				<li>你好</li>
+				<li>这是</li>
+				<li>做测试用的</li>
+				<li>高度</li>
+				<li>没有问题</li>
+			</ul>
+		</li>
+	</ul>
+	<div class="log-tag">
+		<a href="#" class="loginMark">登录</a>|
+		<a href="#" class="regMark">注册</a>
+	</div>
+	<ul class="navbar-right">
+		<li class="dynamic logOut">
+			<img class="AfterUserImg" src="#"/>
+			<ul class="sonMenu" id="nav2">
+				<li>
+					<a href="/userinfo">个人中心</a>
+				</li>
+				<li>
+					<a href="/shoper">我的店铺</a>
+				</li>
+				<li>
+					<a href="#" onclick="userExist()">安全退出</a>
+				</li>
+			</ul>
+		</li>
+		<li class="dynamic">
+			<a href="javascript:void(0)" class="like"><i class="iconfont-2" onclick="myCollect()">&#xe669;</i></a>
+		</li>
+		<li class="dynamic">
+			<a href="javascript:void(0)" class="order"><i class="iconfont-2" onclick="myOrders()">&#xe67b;</i></a>
+		</li>
+	</ul>
+</div>
+<div class="cover">
+</div>
+<div class="log-box">
+	<div class="signoff">
+		<a href="javascript:void(0)">×</a>
+	</div>
+	<form>
+		<ul class="log-menu">
+			<li class="label-log">登录</li>
+			<li class="log-ipt">
+				<input type="text" id="login-phone" name="login-phone" placeholder="手机号"/>
+				<input type="password" id="login-password" name="login-password" placeholder="密码"/>
+			</li>
+			<li class="label-pwd">
+				<a href="#">
+					忘记密码？
+				</a>
+			</li>
+			<li class="btn-log">
+				<input type="button" name="commit" value="登录" onclick="loginUser()"/>
+			</li>
+			<li class="liner">
+				<hr>
+			</li>
+			<li class="regEntr">
+				<a href="#">
+					注册
+					<span class="bgPic logPic"></span>
+					<span class="yjtPic"></span>
+				</a>
+			</li>
+		</ul>
+	</form>
+</div>
+<div class="reg-box">
+	<div class="signoff">
+		<a href="javascript:void(0)">×</a>
+	</div>
+	<form id="imgForm">
+		<ul class="reg-menu">
+			<li class="label-reg">注册</li>
+			<li class="col">
+				<input type="button" id="btn-img" name="btn-img" onclick="Register_uploadImage();" value="选择头像">
+				<input type="file" id="reg-user-file" name="reg-user-file" style="display: none" accept="">
+			</li>
+			<li class="col">
+				<input type="text" name="reg-telephone" id="reg-telephone" placeholder="电话">
+				<input type="text" name="reg-username" id="reg-username" placeholder="昵称">
+
+			</li>
+			<li class="col">
+				<input type="text" name="reg-password" id="reg-password" placeholder="密码">
+				<input type="text" name="reg-email" id="reg-email" placeholder="邮箱">
+			</li>
+			<li class="label-pact">
+				<input id="pact" type="checkbox" name="pact" checked="checked">
+				<a href="#">
+					同意
+					<span class="bgPic logPic"></span>
+					用户协议
+				</a>
+			</li>
+			<li class="btn-reg">
+				<input type="button" name="commit" value="注册" onclick="Register_check()">
+			</li>
+			<li class="liner">
+				<hr>
+			</li>
+			<li class="logEntr">
+				<a href="#">
+					登录
+					<span class="bgPic logPic"></span>
+					<span class="yjtPic"></span>
+				</a>
+			</li>
+		</ul>
+	</form>
+</div>
+<div class="detail-box">
+	<div class="signoff" id="signoffTwo">
+		<a href="javascript:void(0)">×</a>
+	</div>
+	<img src="" class="product-img">
+	<span class="product-name">商品名称商品名称商品名称商品名称</span>
+	<span class="product-desc">商品详情商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述</span>
+	<span class="inventory">库存:</span>
+	<span class="inventory-num">5</span>
+	<button id="shop-id" value="" style="display:none"></button>
+	<button class="good-counter-min"><i class="iconfont" onclick="">&#xe74b;</i></button>
+	<span class="good-counter-num">0</span>
+	<button class="good-counter-plus"><i class="iconfont" onclick="">&#xe631;</i></button>
+	<span class="good-price" >￥80</span>
+	<span class="sales">销量:</span>
+	<span class="sales-num"></span>
+	<!-- 立即购买 -->
+	<button class="purchase"><i class="iconfont-3"  onclick="buyGoods(this)">&#xe747;</i></button>
+	<!-- 加入购物车 -->
+	<button class="shopcar"><i class="iconfont-3"  onclick="addShoppingCar(this)">&#xe636;</i></button>
+</div>
+</body>
+<script type="text/javascript" src="../static/js/jquery-3.2.1.min.js" th:src="@{js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" src="../static/js/index.js" th:src="@{js/index.js}"></script>
+<script src="../static/js/js.cookie.js" th:src="@{js/js.cookie.js}"></script>
+<script type="text/javascript" src="../static/js/tools.js" th:src="@{js/tools.js}"></script>
+</html>

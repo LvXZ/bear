@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>修改商品</title>
+
+    <link rel="shortcut icon" href="../static/img/bear.png" th:href="@{img/bear.png}" type="image/x-icon"/>
+</head>
+<body>
+
+店铺id<input type="text" name="mod-shop-id" id="mod-shop-id" ><br/>
+商品id<input type="text" name="mod-goods-id" id="mod-goods-id"><br/>
+图片<img src="#" id="show-goods-img-2" name="show-goods-img-2" width="500" height="500"/> <input type="file" id="mod-goods-file" name="mod-goods-file"/><input type="button" value="修改信息" onclick="goodsModifyImage()"><br/>
+商品名称<input type="text" name="mod-goods-name" id="mod-goods-name" width="200"><br/>
+价格<input type="text" name="mod-goods-price" id="mod-goods-price"><br/>
+优先级<input type="text" name="mod-goods-priority" id="mod-goods-priority"><br/>
+销量<input type="text" name="mod-goods-sales" id="mod-goods-sales"><br/>
+种类<input type="text" name="mod-goods-category" id="mod-goods-category"><br/>
+介绍<input type="text" name="mod-goods-introduction" id="mod-goods-introduction"><br/>
+库存<input type="text" name="mod-goods-invenory" id="mod-goods-invenory"><br/>
+<br/>
+<br/>
+<input type="text" name="input-goods-id" id="input-goods-id"><input type="button" value="获取" onclick="getInputGoods()">
+<br/>
+<br/>
+<input type="button" value="修改信息" onclick="goodsModifyInfo()">
+
+
+<div id="ImgCon"></div>
+</body>
+
+<script type="text/javascript" src="../static/js/jquery-3.2.1.min.js" th:src="@{js/jquery-3.2.1.min.js}"></script>
+<script src="../static/js/js.cookie.js" th:src="@{js/js.cookie.js}"></script>
+
+<script>
+    //findGoods();
+    function getInputGoods(){
+        findGoods();
+    }
+
+    showImage();
+    function showImage(){
+        var inputJ = $("#mod-goods-file");
+
+        inputJ.change(function(e){
+            var file     = e.target.files[0],//拿到原始对象
+                thisType = file.type,//获取到表面的名称，可判断文件类型
+                thisSize = file.size,//文件的大小
+                reader   = new FileReader();
+
+            //readAsDataURL(file),读取文件，将文件以数据URL的形式保存在result的属性中
+            reader.readAsDataURL(file);
+
+            //文件加载成功以后，渲染到页面
+            reader.onload = function(e) {
+                $("#show-goods-img-2").attr("src", e.target.result);
+            }
+        });
+
+    }
+
+    function findGoods(){
+
+        var inputGoodsId = $('#input-goods-id').val();
+        var objJson = {
+            "goodsId":inputGoodsId
+        };
+
+        var URL = "/goods/find_goods";
+        Find_AJAXFunction(objJson,URL);
+    }
+
+    function Find_AJAXFunction(objJson,URL) {
+
+        $.ajax({
+            type:"POST",
+            url: URL,
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(objJson),
+            async:true,
+            success: function (response) {
+
+                if(response.code==1){
+                    //alert(response.msg);
+                    console.log(response);
+
+                    showGoodsInfo(response.data);
+
+                }else{
+                    alert(response.msg);
+                }
+
+
+            },
+            error: function (){
+                alert("访问失败，请检查网络、路径......");
+            }
+        });
+    }
+
+    function showGoodsInfo(data) {
+
+        /*$("img").one("error", function(){
+            var array = ["blue","green","orange","purple","yellow"];
+            var i = Math.floor(Math.random()*5); //可均衡获取0到4的随机整数。
+            $(this).attr("src","../static/img/"+ array[i] +"_bear.png");
+        });*/
+
+        $("#mod-shop-id").val(data.shopId);
+        $("#mod-goods-id").val(data.goodId);
+        $("#mod-goods-name").val(data.goodName);
+        $("#mod-goods-price").val(data.price);
+        $("#mod-goods-priority").val(data.priority);
+        $("#mod-goods-sales").val(data.sales);
+        $("#mod-goods-category").val(data.category);
+        $("#mod-goods-introduction").val(data.introduction);
+        $("#mod-goods-invenory").val(data.invenory);
+
+
+        if(data.image.length > 0){
+            var newImage = data.image.replace(/\\/g,"/")
+            var path = 'http://192.168.35.112:8081/download/o2o/images' + newImage;
+            $("#show-goods-img-2").attr("src",path);
+        }else{
+            var array = ["blue","green","orange","purple","yellow"];
+            var i = Math.floor(Math.random()*5); //可均衡获取0到4的随机整数。
+            $("#show-goods-img-2").attr("src","../static/img/"+ array[i] +"_bear.png");
+        }
+    }
+
+    function goodsModifyInfo() {
+
+
+        var registerUrl = '/goods/modify_goods_info';
+
+        //创建json字符串
+        var objJson = {};
+        objJson.goodId = $('#mod-goods-id').val();
+        objJson.goodName = $('#mod-goods-name').val();
+        objJson.price = $('#mod-goods-price').val();
+        objJson.sales = $('#mod-goods-sales').val();
+        objJson.category = $('#mod-goods-category').val();
+        objJson.shopId = $('#mod-shop-id').val();
+        objJson.introduction = $('#mod-goods-introduction').val();
+        objJson.invenory = $('#mod-goods-invenory').val();
+        objJson.priority = $("#mod-goods-priority").val();
+
+
+        var formData = new FormData();//创建传输对象
+        formData.append('objJson', JSON.stringify(objJson));
+        console.log(formData.get("objJson"));
+
+
+        $.ajax({
+            url : registerUrl,
+            type : 'POST',
+            data : formData,
+            processData: false,       //必不可缺
+            contentType: false,       //必不可缺
+            cache : false,
+            success : function(response) {
+                if (response.code == 1) {
+                    alert(response.msg);
+
+                    //var openURL = "/login";
+                    //window.open(openURL, "_self");
+
+                } else {
+                    alert(response.msg);
+                    //$('#captcha_img').click();
+                }
+            },
+            error: function (){
+                alert("访问失败，请检查网络、路径......");
+            }
+        });
+
+    }
+
+    function goodsModifyImage() {
+
+
+        var goodsFile = document.getElementById('mod-goods-file');
+        var fileNameArr = goodsFile.value.toLowerCase().split('.');
+
+        var suffix = fileNameArr[fileNameArr.length-1];
+        //如果后缀为空
+        if(suffix != ""){
+
+            if(suffix=='gif'||suffix=='jpg'||suffix=='bmp'||suffix=='png'||suffix=='jpeg'){
+                var imgSize = goodsFile.files[0].size;
+                //alert("图片大小："+imgSize+"B");
+                if(imgSize>1024*1024*3){
+                    alert("注册失败，图片大于3M");
+                    return false;
+                }
+            }else{
+                alert("请选择格式为*.jpg、*.gif、*.bmp、*.png、*.jpeg 的图片");
+                return false;
+            }
+        }
+
+        var registerUrl = '/goods/modify_goods_image';
+
+        //创建json字符串
+        var objJson = {};
+        objJson.goodId = $('#mod-goods-id').val();
+
+        var thumbnail = $('#mod-goods-file')[0].files[0];//图片
+
+        var formData = new FormData();//创建传输对象
+        formData.append('objImg', thumbnail);
+        formData.append('objJson', JSON.stringify(objJson));
+        console.log(formData.get("objJson"));
+
+
+        $.ajax({
+            url : registerUrl,
+            type : 'POST',
+            data : formData,
+            processData: false,       //必不可缺
+            contentType: false,       //必不可缺
+            cache : false,
+            success : function(response) {
+                if (response.code == 1) {
+                    alert(response.msg);
+
+                    //var openURL = "/login";
+                    //window.open(openURL, "_self");
+
+                } else {
+                    alert(response.msg);
+                    //$('#captcha_img').click();
+                }
+            },
+            error: function (){
+                alert("访问失败，请检查网络、路径......");
+            }
+        });
+
+    }
+
+
+
+</script>
+</html>
