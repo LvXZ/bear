@@ -1,0 +1,211 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    background-color: #808080;
+}
+
+.center {
+    width: 978px;
+    margin: 0 auto;
+}
+
+.clear:after {
+    visibility: hidden;
+    content: "";
+    clear: both;
+    zoom: 1;
+}
+
+.date {
+    font-size: 9px;
+    background-color: #ccc;
+    position: absolute;
+    top: 2px;
+    left: 40%;
+    padding-left: 4px;
+    padding-right: 4px;
+    border-radius: 14px;
+    display: inline-block;
+}
+/* 公用部分结束*/
+
+/* 主体界面开始 */
+.contact-body {
+    margin-top: 30px;
+}
+
+/*蓝色头部开始*/
+.header {
+    height: 75px;
+    background: #2d8ef2;
+}
+
+.header img {
+    margin-top: -20px;
+}
+/*蓝色头部结束*/
+
+/*主体的左边开始*/
+.seeHistory {
+    text-align:center;
+    margin-bottom:20px;
+}
+.seeHistory a{
+    text-decoration:none;
+    font-size:12px;
+}
+.left-main {
+    width: 605px;
+    height: 591px;
+    float: left;
+    background: white;
+    position: relative;
+}
+
+.window {
+    overflow: auto;
+    height: 490px;
+    background: #eee;
+    overflow: auto;
+}
+
+.left {
+    padding: 20px;
+    position: relative;
+    margin-right: 28px;
+}
+
+.left span {
+    position: absolute;
+    display: inline-block;
+    width: 18px;
+    height: 21px;
+    top: 33px;
+    left: 83px;
+    background: url("../img/msg_bg_lr.png") no-repeat;
+    background-position-y: -10px;
+}
+
+.left img {
+    display: inline-block;
+    margin-right: 30px;
+}
+
+.left p {
+    display: inline-block;
+    background: white;
+    padding: 10px;
+    word-break: break-all;
+    max-width: 443px;
+    line-height: 20px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-family: "黑体";
+    vertical-align: top;
+}
+
+.right {
+    text-align: right;
+    vertical-align: top;
+    padding: 20px;
+    position: relative;
+    margin-right: 28px;
+    width: 537px;
+}
+
+.right span {
+    position: absolute;
+    display: inline-block;
+    width: 16px;
+    height: 27px;
+    top: 34px;
+    left: 476px;
+    background: url("../img/msg_bg_lr.png") no-repeat;
+    background-position: -73px -10px;
+}
+
+.right img {
+    display: inline-block;
+    margin-left: 30px;
+}
+
+.right p {
+    display: inline-block;
+    background: #3897E7;
+    vertical-align: top;
+    padding: 10px;
+    word-break: break-all;
+    max-width: 433px;
+    line-height: 20px;
+    border-radius: 10px;
+    font-size: 12px;
+    font-family: "黑体";
+    color: white;
+    text-align: left;
+}
+
+.input {
+    border-top: 1px solid #aaa;
+    position: relative;
+}
+
+.input textarea {
+    margin: 20px;
+    border: none;
+    outline: none;
+    resize: none;
+    word-break: break-all;
+    height: 45px;
+    overflow: hidden;
+}
+
+.input .close {
+    width: 65px;
+    height: 34px;
+    text-align: center;
+    line-height: 34px;
+    position: absolute;
+    right: 93px;
+    bottom: -10px;
+}
+
+.input .send {
+    width: 65px;
+    border: none;
+    background: #3897E7;
+    height: 34px;
+    text-align: center;
+    line-height: 34px;
+    position: absolute;
+    right: 10px;
+    bottom: -10px;
+}
+/*主体的左边结束*/
+
+/*主体的右边开始*/
+.right-main {
+    width: 372px;
+    height: 591px;
+    float: left;
+    border-left: 1px solid #aaa;
+    background: white;
+}
+
+.menu li {
+    list-style: none;
+    box-sizing: border-box;
+    width: 50%;
+    padding: 10px;
+    text-align: center;
+    background: #eee;
+    float: left;
+}
+
+.menu .active {
+    background: #ccc;
+}

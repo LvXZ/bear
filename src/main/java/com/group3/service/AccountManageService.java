@@ -21,6 +21,13 @@ public interface AccountManageService {
 	ResponseInfoDTO<UserInfo> accountLogin(UserInfo personInfo);
 
 	/**
+	 * 验证支付
+	 * @return
+	 * @throws
+	 */
+	ResponseInfoDTO<UserInfo> password(UserInfo personInfo);
+
+	/**
 	 * 查验用户cookies
 	 * @return
 	 * @throws

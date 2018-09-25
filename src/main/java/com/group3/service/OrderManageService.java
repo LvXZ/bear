@@ -37,4 +37,11 @@ public interface OrderManageService {
      * @throws
      */
     ResponseInfoDTO<List<Order>> queryDealOrdersByShopOwnerId(String ownerId);
+
+
+    /**
+     * 通过订单id修改 deal
+     * @param order
+     */
+    ResponseInfoDTO<Order> updateOrderDealByOrderId(Order order);
 }

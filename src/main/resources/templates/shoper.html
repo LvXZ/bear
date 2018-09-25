@@ -71,25 +71,25 @@
         <li>
             <hr class="liner">
         </li>
-        <li class="inforType">
+        <!--li class="inforType">
             <input type="text" name="reg-shop-id" id="reg-shop-id" placeholder="店铺id" class="readonly" readonly="readonly"><br/>
-        </li>
-        <li class="inforType">
+        </li>-->
+        <li class="inforType" id="reg-goods-name-tag">
             <input type="text" name="reg-goods-name" id="reg-goods-name" placeholder="商品名称"><br/>
         </li>
-        <li class="inforType">
+        <li class="inforType" id="reg-goods-price-tag">
             <input type="text" name="reg-goods-price" id="reg-goods-price" placeholder="价格"><br/>
         </li>
-        <li class="inforType">
+        <li class="inforType" id="reg-goods-sales-tag">
             <input type="text" name="reg-goods-sales" id="reg-goods-sales" placeholder="销量"><br/>
         </li>
-        <li class="inforType">
+        <li class="inforType" id="reg-goods-category-tag">
             <input type="text" name="reg-goods-category" id="reg-goods-category" placeholder="种类"><br/>
         </li>
-        <li class="inforType">
+        <li class="inforType" id="reg-goods-invenory-tag">
             <input type="text" name="reg-goods-invenory" id="reg-goods-invenory" placeholder="库存"><br/>
         </li>
-        <li class="inforType">
+        <li class="inforType" id="reg-goods-introduction-tag">
             <input type="text" name="reg-goods-introduction" id="reg-goods-introduction" placeholder="介绍"><br/>
         </li>
 
@@ -100,7 +100,7 @@
             <button type="button" class="btn btn-sm button-location" onclick="getGoodsImage()">获取图片</button>
         </li>
 
-        <li class="save">
+        <li class="update">
             <input type="submit" name="" value="上架商品" onclick="addGoods()">
         </li>
 
@@ -110,36 +110,35 @@
         <li>
             <hr class="liner">
         </li>
-        <li class="inforType">
-            <input type="text" name="mod-shop-id" id="mod-shop-id" placeholder="店铺id" class="readonly" readonly="readonly"><br/>
+        <li class="inforType" id="mod-shop-id-tag">
+            <input type="text" name="mod-shop-id" id="mod-shop-id" placeholder="店铺id" class="readonly" readonly="readonly">
         </li>
-        <!--<li class="inforType">
+     <!--    <li class="inforType">
             <input type="text" name="input-goods-id" id="input-shop-id" placeholder="查询商铺编号" class="readonly" readonly="readonly"><input type="button" value="获取" onclick="getInputShop()"><br/>
-        </li>-->
-        <li class="inforType">
+        </li> -->
+        <li class="inforType" id="username-tag">
             <input type="text" name="mod-owner-id" id="mod-owner-id" placeholder="店主id" class="readonly" readonly="readonly"><br/>
         </li>
-        <li class="inforType">
+        <li class="inforType" id="mod-shop-name-tag">
             <input type="text" name="mod-shop-name" id="mod-shop-name" placeholder="店铺名称"><br/>
         </li>
-        <!--<li class="inforType">
-            <input type="text" name="mod-shop-priority" id="mod-shop-priority" placeholder="优先级"><br/>
-        </li>-->
-        <li class="inforType">
+       
+        <li class="inforType" id="mod-shop-category-tag">
             <input type="text" name="mod-shop-category" id="mod-shop-category" placeholder="商店种类"><br/>
         </li>
-        <li class="inforType">
+        <li class="inforType" id="mod-shop-introduction-tag">
             <input type="text" name="mod-shop-introduction" id="mod-shop-introduction" placeholder="介绍"><br/>
         </li>
-        <li class="inforType">
+        <li class="inforType" id="mod-shop-card-tag">
             <input type="text" name="mod-shop-card" id="mod-shop-card" placeholder="身份证"><br/>
         </li>
-        <li class="inforType">
-            <input type="text" name="mod-shop-bank" id="mod-shop-bank" placeholder="开户银行"><br/>
-        </li>
-        <li class="inforType">
+         <li class="inforType" id="mod-shop-logistics-tag">
             <input type="text" name="mod-shop-logistics" id="mod-shop-logistics" placeholder="物流公司"><br/>
         </li>
+        <li class="inforType" id="mod-shop-bank-tag">
+            <input type="text" name="mod-shop-bank" id="mod-shop-bank" placeholder="开户银行"><br/>
+        </li>
+ 
 
 
         <li>
@@ -157,6 +156,50 @@
 
     </ul>
 </div>
+
+<div class="detail-box">
+    <ul class="goods-main">
+        <li class="title">商品信息</li>
+        <li>
+            <hr class="liner">
+        </li>
+        <li class="inforType" id="modify-shop-id-tag">
+            <input type="text" class="inforType-input" name="modify-shop-id" id="modify-shop-id" placeholder="店铺id" ><br/>
+        </li>
+        <li class="inforType" id="modify-goods-name-tag">
+            <input type="text" class="inforType-input" name="modify-goods-name" id="modify-goods-name" placeholder="商品名称"><br/>
+        </li>
+        <li class="inforType" id="modify-goods-price-tag">
+            <input type="text" class="inforType-input" name="modify-goods-price" id="modify-goods-price" placeholder="价格"><br/>
+        </li>
+        <li class="inforType" id="modify-goods-sales-tag">
+            <input type="text" class="inforType-input" name="modify-goods-sales" id="modify-goods-sales" placeholder="销量"><br/>
+        </li>
+        <li class="inforType" id="modify-goods-category-tag">
+            <input type="text" class="inforType-input" name="modify-goods-category" id="modify-goods-category" placeholder="种类"><br/>
+        </li>
+        <li class="inforType" id="modify-goods-invenory-tag">
+            <input type="text" class="inforType-input" name="modify-goods-invenory" id="modify-goods-invenory" placeholder="库存"><br/>
+        </li>
+        <li class="inforType" id="modify-goods-introduction-tag">
+            <input type="text" class="inforType-input" name="modify-goods-introduction" id="modify-goods-introduction" placeholder="介绍"><br/>
+        </li>
+
+
+        <li>
+            <img src="#" class="goods-Image" id="user-image-3">
+            <button class="btn-change" onclick="Register_uploadImage()">更换图片</button>
+            
+            <input type="file" id="modify-user-file" name="modify-user-file" style="display: none" accept="">
+        </li>
+        <li class="save">
+            <input  class="save1" type="button" name="" value="修改" onclick="userModifyInfo()">
+            <input  class="save2" type="button" name="" value="取消" onclick="CloseDetail()">
+            <input  class="save3" type="button" name="" value="下架" onclick="">
+        </li>
+    </ul>
+ </div>
+
 <div class="menu-box">
     <ul class="info-menu">
         <span class="title">我的店铺</span>
@@ -171,7 +214,6 @@
 <script type="text/javascript" src="../static/js/shoper.js" th:src="@{js/shoper.js}"></script>
 <script src="../static/js/js.cookie.js" th:src="@{js/js.cookie.js}"></script>
 <script type="text/javascript" src="../static/js/tools.js" th:src="@{js/tools.js}"></script>
-
 
 
 </html>

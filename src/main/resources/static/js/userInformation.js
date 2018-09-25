@@ -9,15 +9,15 @@ $(document).ready(function(){
     $('.products.dynamic').mouseover(function(){
         $(this).children('.product').css("backgroundColor", "#474646");
     });
-    $('.products.dynamic').mouseout(function(){
-        $(this).children('.product').css("backgroundColor", "#4f4e4e");
-    });
-
-
-    $('.logOut').mouseover(function(){
-        $(this).children('.sonMenu').show();
-    });
     $('.logOut').mouseout(function(){
+        $('.products.dynamic').mouseout(function(){
+            $(this).children('.product').css("backgroundColor", "#4f4e4e");
+        });
+
+
+        $('.logOut').mouseover(function(){
+            $(this).children('.sonMenu').show();
+        });
         $(this).children('.sonMenu').hide();
     });
 
@@ -30,6 +30,34 @@ $(document).ready(function(){
         $('.order-main').siblings().hide();
         $('.order-main').show();
     });
+
+    // 点击关闭商品详情box
+    $('#signoffTwo').click(function(){
+        $('.likeDetBox').fadeOut();
+        $(document).unbind('mousewheel');
+    });
+
+
+    // 商品详情界面加减按钮响应
+
+    $('.like-good-counter-min').click(function(){
+        var temp = Number($('.like-good-counter-num').text());
+        if(temp > 0) {
+            console.log('-');
+            temp --;
+            $('.like-good-counter-num').text(""+ temp);
+        }
+
+    });
+    $('.like-good-counter-plus').click(function(){
+        var temp = Number($('.like-good-counter-num').text());
+        var store = Number($('.like-inventory-num').text());
+        if(temp < store) {
+            temp ++;
+            $('.like-good-counter-num').text(""+ temp);
+        }
+    });
+
 
     //加载我的收藏
     showCollections();
@@ -60,10 +88,146 @@ $(document).ready(function(){
         tar[0].attr('id','');
         tar[list].attr('id','active');
     }
-    
+
+    var warningBox = $('<div class="warning-box">你好</div>');
+    $('body').append(warningBox);
 });
 
 
+
+function productBox(goodsId) {
+    console.log(goodsId);
+    goodsId = goodsId+"";
+
+    var objJson = {
+        "goodsId":goodsId
+    };
+    var URL = "/goods/find_goods";
+    ShowGoods_Function(objJson,URL);
+
+    // 展示商品详情界面,禁用滚动条
+    $(document).bind('mousewheel', function(event, delta) {return false;});
+    $('.likeDetBox').show();
+
+}
+
+function ShowGoods_Function(objJson,URL) {
+
+    $.ajax({
+        type:"POST",
+        url: URL,
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify(objJson),
+        async:true,
+        success: function (response) {
+            console.log(response.data);
+
+            $(".like-product-name").html(response.data.goodName);
+            $(".like-product-desc").html(response.data.introduction);
+            $(".like-inventory-num").html(response.data.invenory);
+            $(".like-good-counter-num").html(0);
+            $(".like-good-price").html("￥"+response.data.price);
+            $("#shop-id").val(response.data.shopId);
+            $(".like-sales-num").html(response.data.sales);
+            $(".iconfont-3").attr("id",response.data.goodId);
+
+
+
+            if(response.data.image.length > 10){
+                var newImage = response.data.image.replace(/\\/g,"/");
+                var path = 'http://192.168.35.112:8081/download/o2o/images' + newImage;
+                $(".like-product-img").attr("src",path);
+            }else{
+                var array = ["blue","green","orange","purple","yellow"];
+                var i = Math.floor(Math.random()*5); //可均衡获取0到4的随机整数。
+                $(".like-product-img").attr("src","img/"+ array[i] +"_bear.png");
+                $(".like-product-img").attr("th:src","@{img/"+ array[i] +"_bear.png}");
+            }
+        },
+        error: function (){
+            alert("当前网络不稳定......");
+        }
+    });
+}
+
+//立即购买
+function buyGoods(obj) {
+
+
+    var goodsId = obj.id,
+        purchaseNumber = $(".good-counter-num").html(),
+        shopId = $("#shop-id").val(),
+        price = $(".good-price").html();
+
+    if(parseInt(purchaseNumber) < 1){
+        alert("购买失败，您未选择数量");
+    }else{
+
+        if(!Cookies.get('UserObjJson')){
+            alert("您还未登录");
+        }else{
+            // 验证支付密码
+            var payPwd = prompt("请输入支付密码","");
+            var jsonValue = JSON.parse(Cookies.get('UserObjJson'));
+
+            var objJson1 = {
+                "telephone":jsonValue.telephone,
+                "password":payPwd
+            };
+
+            var URL1 = "/user/purchase";
+            $.ajax({
+                type:"POST",
+                url: URL1,
+                contentType: "application/json;charset=utf-8",
+                dataType: "json",
+                data: JSON.stringify(objJson1),
+                async:true,
+                success: function (response) {
+                    if(response.code == 1){
+
+                        var totalPrice = parseFloat(price.substring(1))*parseInt(purchaseNumber) + "";
+                        var objJson2 = {
+                            "goodsId":goodsId,
+                            "purchaseNumber":purchaseNumber,
+                            "shopId":shopId,
+                            "totalPrice":totalPrice
+                        };
+
+                        var URL2 = "/order/make_order";
+                        $.ajax({
+                            type:"POST",
+                            url: URL2,
+                            contentType: "application/json;charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(objJson2),
+                            async:true,
+                            success: function (response) {
+
+                                    showWarningBox(response.msg);
+                            },
+                            error: function (){
+                                showWarningBox("当前网络不稳定......");
+                            }
+                        });
+
+
+                    }else{
+                        showWarningBox(response.msg);
+                    }
+
+                },
+                error: function (){
+                    showWarningBox("当前网络不稳定......");
+                }
+            });
+
+        }
+
+    }
+
+}
 /************************订单处理****************************/
 
 //我的收藏测试用，谁删谁铁废物。你爸爸我就删，狗儿子
@@ -91,19 +255,20 @@ function showOrders() {
                 }else{
                     for(var i = 0; i < response.data.length; i ++) {
                         var temp = $('<li class="like-detail">' +
-                        '<span class="orders-id">'+response.data[i].orderId+'</span>' +
+                        '<span class="orders-goods-name">'+response.data[i].goodsObject.goodName+'</span>' +
                         '<span class="orders-deal">处理状态:</span>' +
-                        '<span class="orders-goods-name">商品名称:</span>' +
+                        '<span class="orders-id">订单ID:</span>' +
                         '<span class="orders-goods-num">购买数量:</span>' +
                         '<span class="orders-goods-price">购买总价:</span>' +
                         '<span class="orders-goods-time">下单时间:</span>' +
                         '<span class="orders-deal-1">'+showDeal(response.data[i].deal)+'</span>' +
-                        '<span class="orders-goods-name-1">'+response.data[i].goodsObject.goodName+'</span>' +
+                        '<span class="orders-goods-id-1">'+response.data[i].orderId+'</span>' +
                         '<span class="orders-goods-num-1">'+countNum(response.data[i].totalPrice,response.data[i].goodsObject.price)+'</span>' +
                         '<span class="orders-goods-price-1">'+response.data[i].totalPrice+'</span>' +
                         '<span class="orders-goods-time-1">'+response.data[i].deal+'</span>' +
+                        '<button class="get-order order-btn" id="'+ response.data[i].orderId +'" data-deal="'+ response.data[i].deal +'" onclick="ensureOrder(this)">确定收货</button>' +
+                        '<button class="cancel-order order-btn" id="'+ response.data[i].orderId +'" data-deal="'+ response.data[i].deal +'" onclick="cancelOrder(this)">取消订单</button>' +
                         '<img src="http://192.168.35.112:8081/download/o2o/images'+ response.data[i].goodsObject.image.replace(/\\/g,"/") +'" class="orders-img"></li>');
-
 
                         $('#order-main').append(temp);
                     }
@@ -124,6 +289,102 @@ function showOrders() {
 
 
 }
+function ensureOrder(obj) {
+    if(parseInt(obj.getAttribute('data-deal'))>=0){
+
+        showWarningBox("收货成功");
+
+        // 后台
+
+        var objJson = {
+            "orderId":obj.id,
+            "deal": 3
+        };
+
+        var URL = "/order/update_order";
+
+
+        $.ajax({
+            type:"POST",
+            url: URL,
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(objJson),
+            async:true,
+            success: function (response) {
+                console.log(response.msg);
+
+                if(response.code == 1){
+                    $(obj).parent().children('.orders-deal-1').text(showDeal(3));
+
+                    $(obj).parent().children('get-order order-btn').setAttribute("data-deal","3");
+                    $(obj).parent().children('cancel-order order-btn').setAttribute("data-deal","3");
+                }
+            },
+            error: function (){
+                alert("当前网络不稳定......");
+            }
+        });
+    }else{
+        alert("订单已经取消");
+    }
+
+
+
+}
+
+function cancelOrder(obj) {
+
+    if(parseInt(obj.getAttribute('data-deal')) <= 1){
+        // 网页上删除改订单
+        showWarningBox("取消订单成功，等待商家确认");
+
+        // 数据库删除订单
+
+        var objJson = {
+            "orderId":obj.id,
+            "deal":-1
+        };
+
+        var URL = "/order/update_order";
+
+
+        $.ajax({
+            type:"POST",
+            url: URL,
+            contentType: "application/json;charset=utf-8",
+            dataType: "json",
+            data: JSON.stringify(objJson),
+            async:true,
+            success: function (response) {
+                console.log(response.msg);
+                if(response.code == 1){
+                    $(obj).parent().children('.orders-deal-1').text(showDeal(-1));
+
+                    $(obj).parent().children('get-order order-btn').setAttribute("data-deal","-1");
+                    $(obj).parent().children('cancel-order order-btn').setAttribute("data-deal","-1");
+                }
+            },
+            error: function (){
+                alert("当前网络不稳定......");
+            }
+        });
+    }else{
+        alert("订单已经发送，无法取消");
+    }
+
+
+
+
+
+}
+function showWarningBox(tar) {
+    $('.warning-box').hide();
+    $('.warning-box').text(tar).fadeIn();
+    setTimeout(function(){
+        $('.warning-box').fadeOut();
+    },2000);
+}
 
 function countNum(totalPrice,price){
     return parseFloat(totalPrice)/parseFloat(price);
@@ -133,7 +394,8 @@ function showDeal(deal) {
 
     var i = parseInt(deal);
     switch(i){
-        case -1:{return "订单已经退货";}break;
+        case -2:{return "订单已经退货";}break;
+        case -1:{return "等待商家确认退货";}break;
         case 0:{return "订单等待商家发货";}break;
         case 1:{return "订单货物已经发送";}break;
         case 2:{return "订单货物到达目的地";}break;
@@ -173,6 +435,8 @@ function showImage(){
 }
 
 /************************收藏处理****************************/
+
+
 function showCollections() {
 
     var URL = "/goods/user_collect_goods";
@@ -195,11 +459,12 @@ function showCollections() {
                     num = "-1";
                 }else{
                     for(var i = 0; i < response.data.length; i ++) {
-                        var temp = $('<li class="like-detail"><span class="product-name">'+response.data[i].goodName+'</span>' +
+                        var temp = $('<li class="like-detail" ><span class="product-name pointer" onclick="productBox('+response.data[i].goodId+')">'+response.data[i].goodName+'</span>' +
                             '<span class="inventory">库存:</span>' +
+                            '<span class="unlike" id="'+ response.data[i].goodId +'" onclick="unlikeGood(this)">×</span>' +
                             '<span class="inventory-num">'+response.data[i].sales+'</span>' +
                             '<span class="good-price">￥'+response.data[i].price+'</span>' +
-                            '<img src="http://192.168.35.112:8081/download/o2o/images'+ response.data[i].image.replace(/\\/g,"/") +'" class="product-img"></li>');
+                            '<img src="http://192.168.35.112:8081/download/o2o/images'+ response.data[i].image.replace(/\\/g,"/") +'" class="product-img pointer" onclick="productBox('+response.data[i].goodId+')"></li>');
                         $('#like-main').append(temp);
                     }
 
@@ -218,7 +483,44 @@ function showCollections() {
     });
 
 }
+//收藏商品详情界面
+function likeDetBox() {
 
+}
+
+
+// 取消收藏
+function unlikeGood(obj) {
+    // 网页上删除改商品
+    showWarningBox("取消收藏");
+    $(obj).parent().remove();
+
+    // 数据库删除改商品
+
+    var objJson = {
+        "goodsId":obj.id
+    };
+
+    var URL = "/goods/un_collect_goods";
+
+
+    $.ajax({
+        type:"POST",
+        url: URL,
+        contentType: "application/json;charset=utf-8",
+        dataType: "json",
+        data: JSON.stringify(objJson),
+        async:true,
+        success: function (response) {
+            console.log(response.msg)
+        },
+        error: function (){
+            alert("当前网络不稳定......");
+        }
+    });
+
+    
+}
 
 /************************Cookies处理****************************/
 

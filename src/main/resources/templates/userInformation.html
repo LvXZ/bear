@@ -7,6 +7,7 @@
 	<title>Document</title>
 	<link rel="shortcut icon" href="../static/img/bear.png" th:href="@{img/bear.png}" type="image/x-icon"/>
 	<link rel="stylesheet" type="text/css" href="../static/css/userInformation.css" th:href="@{css/userInformation.css}">
+	<link rel="stylesheet" type="text/css" href="../static/css/likeDetBox.css" th:href="@{css/likeDetBox.css}">
 </head>
 <body onload="checkCookies()">
 	<div id="dynamicNav" class="nav-wrp">
@@ -58,26 +59,26 @@
 			<li>
 				<hr class="liner">
 			</li>
-			<li class="inforType">
+			<li class="inforType" id="userid-tag">
 				<input type="text" class="readonly" name="userID" id="user-id" readonly="readonly">
 			</li>
-			<li class="inforType">
+			<li class="inforType" id="username-tag">
 				<input type="text" name="userName" id="user-name" >
 			</li>
-			<li class="inforType">
+			<li class="inforType" id="usermail-tag">
 				<input type="text" name="userEmail" id="user-email" >
 			</li>
 			<li class="userSex">
 				<input type="radio" name="sex" id="user-man" value="1">男
 				<input type="radio" name="sex" id="user-woman" value="0">女
 			</li>
-			<li class="inforType">
+			<li class="inforType" id="useradd-tag">
 				<input type="text" name="address" id="user-address" >
 			</li>
 			<li>
 				<img src="#" class="userImage" id="user-image">
-				<button class="btn-change" onclick="Register_uploadImage()">更换头像</button>
-				<button class="btn-img-save" onclick="userModifyImage()">保存头像</button>
+				<button class="btn-change order-btn" onclick="Register_uploadImage()">更换头像</button>
+				<button class="btn-img-save order-btn" onclick="userModifyImage()">保存头像</button>
 				<input type="file" id="reg-user-file" name="reg-user-file" style="display: none" accept="">
 			</li>
 			<li class="save">
@@ -95,6 +96,22 @@
 			<li>
 				<hr class="liner">
 			</li>
+			<!-- <li class="like-detail">
+				<span class="orders-goods-name">商品名称</span>
+				<span class="orders-deal">处理状态:</span>
+				<span class="orders-id">订单ID:</span>
+				<span class="orders-goods-num">购买数量:</span>
+				<span class="orders-goods-price">购买总价:</span>
+				<span class="orders-goods-time">下单时间:</span>
+				<span class="orders-deal-1">我怎么知道有什么专题太</span>
+				<span class="orders-goods-id-1">555</span>
+				<span class="orders-goods-num-1">555</span>
+				<span class="orders-goods-price-1">555</span>
+				<span class="orders-goods-time-1">24545345345</span>
+				<img src="http://192.168.35.112:8081/download/o2o/images'+ response.data[i].goodsObject.image.replace(/\\/g,"/") +'" class="orders-img">
+				<button class="get-order order-btn" onclick="getOrder()">确定收货</button>
+				<button class="cancel-order order-btn" onclick="cancelOrder(this)">取消订单</button>
+			</li> -->
 
 
 		</ul>
@@ -103,9 +120,39 @@
 			<li>
 				<hr class="liner">
 			</li>
+			<!-- <li class="like-detail">
+				<span class="unlike" onclick="unlikeGood(this)">×</span>
+				<span class="product-name">what the hell is wrong with you</span>
+				<span class="inventory">库存:</span>
+				<span class="inventory-num">999</span>
+				<span class="good-price">￥999</span>
+				<img src="" class="product-img">
+			</li> -->
 
 		</ul>
 	</div>
+	<div class="likeDetBox">
+		<div class="signoff" id="signoffTwo">
+			<a href="javascript:void(0)">×</a>
+		</div>
+		<img src="" class="like-product-img">
+		<span class="like-product-name">商品名称商品名称商品名称商品名称</span>
+		<span class="like-product-desc">商品详情商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述商品详情描述</span>
+		<span class="like-inventory">库存:</span>
+		<span class="like-inventory-num">5</span>
+		<button id="shop-id" value="" style="display:none"></button>
+		<button class="like-good-counter-min"><i class="iconfont" onclick="">&#xe74b;</i></button>
+		<span class="like-good-counter-num">0</span>
+		<button class="like-good-counter-plus"><i class="iconfont" onclick="">&#xe631;</i></button>
+		<span class="like-good-price" >￥80</span>
+		<span class="like-sales">销量:</span>
+		<span class="like-sales-num"></span>
+		<!-- 立即购买 -->
+		<button class="like-purchase"><i class="iconfont-3"  onclick="buyGoods(this)">&#xe747;</i></button>
+		<!-- 加入购物车 -->
+		<button class="like-shopcar"><i class="iconfont-3"  onclick="addShoppingCar(this)">&#xe636;</i></button>
+	</div>
+
 	<div class="menu-box">
 		<ul class="info-menu">
 			<span class="title">我的</span>

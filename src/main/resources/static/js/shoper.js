@@ -93,7 +93,7 @@ function showShopGoods() {
                             '<span class="inventory">库存:</span>' +
                             '<span class="inventory-num">'+response.data[i].sales+'</span>' +
                             '<span class="good-price">￥'+response.data[i].price+'</span>' +
-                            '<img src="http://192.168.35.112:8081/download/o2o/images'+ response.data[i].image.replace(/\\/g,"/") +'" class="product-img"></li>');
+                            '<img src="http://192.168.35.112:8081/download/o2o/images'+ response.data[i].image.replace(/\\/g,"/") +'" class="product-img"  onclick="OpenDetail()"></li>');
                         $('#info-main').append(temp);
                     }
 
@@ -260,11 +260,14 @@ function addGoods() {
 
     //创建json字符串
     var objJson = {};
+
+    //从绑定中获取
+    objJson.shopId = $('#mod-shop-id').val();
+
     objJson.goodName = $('#reg-goods-name').val();
     objJson.price = $('#reg-goods-price').val();
     objJson.sales = $('#reg-goods-sales').val();
     objJson.category = $('#reg-goods-category').val();
-    objJson.shopId = $('#reg-shop-id').val();
     objJson.introduction = $('#reg-goods-introduction').val();
     objJson.invenory = $('#reg-goods-invenory').val();
 
@@ -524,5 +527,17 @@ function shopModifyImage() {
 
 }
 
+
+function OpenDetail() {
+	$(".detail-box").css("display","block");
+
+
+}
+
+function CloseDetail() {
+
+	$(".detail-box").css("display","none");
+
+}
 
 

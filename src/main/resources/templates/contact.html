@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<title>客服聊嗨</title>
+
+	<link rel="shortcut icon" href="../static/img/bear.png" th:href="@{img/bear.png}" type="image/x-icon"/>
+	<link rel="stylesheet" type="text/css" href="../static/css/contact.css" th:href="@{css/contact.css}">
+
+</head>
+<body>
+
+	<input id="id" type="hidden" name="id" value="150804218">
+	<input id="toid" type="hidden" name="toid" value="150804213">
+
+
+	<!--聊天主体界面开始-->
+	<div class="center contact-body clear">
+
+
+		<div class="header">
+			<img src="http://static.360buyimg.com/jimi/img/top_img.png">
+		</div>
+
+
+		<div class="left-main">
+			<div class="window">
+				<div class="seeHistory" id="history">
+					<a href="javascript:void(0)">查看历史纪录</a>
+				</div>
+				<!--  			<div class="left">
+					<img src="../../img/kefu.png">
+					<span></span>
+					<p class="message">
+						啊啊啊啊啊aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+					</p>
+				</div>
+				<div class="right"><span></span><p class="message">hello</p><img src="../../img/kefu.png"></div>
+				-->
+			</div>
+			<div class="input">
+				<textarea id="text-in" name="text-in" class="text-type grayInput"
+					autocomplete="off" style="width: 577px; color: black;"
+					placeholder="请简要描述您的问题，如“退换货运费怎么算”"></textarea>
+				<button class="close">关闭</button>
+				<button class="send">发送</button>
+			</div>
+		</div>
+
+
+
+		<div class="right-main">
+			<ul class="menu">
+				<li class="active">个人订单</li>
+				<li>常见问题</li>
+			</ul>
+		</div>
+	</div>
+	<!--聊天主体界面结束-->
+</body>
+<script type="text/javascript" src="../static/js/jquery-3.2.1.min.js" th:src="@{js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" src="../static/js/contact.js" th:src="@{js/contact.js}"></script>
+</html>

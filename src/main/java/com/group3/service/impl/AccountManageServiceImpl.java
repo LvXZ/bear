@@ -93,7 +93,28 @@ public class AccountManageServiceImpl implements AccountManageService {
 
 	}
 
-    @Override
+	@Override
+	public ResponseInfoDTO<UserInfo> password(UserInfo userInfo) {
+		UserInfo newPersonInfo;
+		UserInfoKey userInfoKey = UserInfoKey.getByPhone;
+		String key = userInfo.getTelephone();
+
+		userInfoKey.setFlag(redisService.hashExists(userInfoKey, key));
+
+		if(userInfoKey.isFlag()){
+			newPersonInfo = redisService.hashGet(userInfoKey, key, UserInfo.class);
+		}else {
+			newPersonInfo = userInfoDAO.selectUserPasswordByPhone(userInfo.getTelephone());
+		}
+
+		if(newPersonInfo != null && newPersonInfo.getPassword().equals(userInfo.getPassword())) {
+			return ResponseInfoDTO.success(MessageDTO.SUCCESS);
+		}else {
+			return ResponseInfoDTO.fail("支付失败");
+		}
+	}
+
+	@Override
     public ResponseInfoDTO<UserInfo> accountCookie(UserInfo userInfo) {
 
         UserInfo getUserInfo = userInfoDAO.selectUserExistByPhone(userInfo.getTelephone());

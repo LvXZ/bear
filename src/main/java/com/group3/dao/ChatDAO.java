@@ -1,19 +1,17 @@
 package com.group3.dao;
 
 import com.group3.entity.Chat;
+import org.apache.ibatis.annotations.Param;
+
+import java.util.List;
 
 public interface ChatDAO {
-    int deleteByPrimaryKey(Integer id);
+    List<Chat> getUnRead(@Param("producerId")String producerId, @Param("subscriberId")String subscriberId);
 
-    int insert(Chat record);
+    int produceRead(Chat chat);
 
-    int insertSelective(Chat record);
+    int updateSign(@Param("producerId")String producerId, @Param("subscriberId")String subscriberId);
 
-    Chat selectByPrimaryKey(Integer id);
-
-    int updateByPrimaryKeySelective(Chat record);
-
-    int updateByPrimaryKeyWithBLOBs(Chat record);
-
-    int updateByPrimaryKey(Chat record);
+    List<Chat> getHistoryInfo(@Param("producerId")String producerId, @Param("subscriberId")String subscriberId, @Param("startTime")String startTime, @Param("endTime")String endTime);
+//	Chat getMoreChat();
 }

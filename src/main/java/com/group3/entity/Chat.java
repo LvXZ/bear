@@ -1,27 +1,20 @@
 package com.group3.entity;
 
-import java.util.Date;
+
+import java.sql.Timestamp;
 
 public class Chat {
-    private Integer id;
-
     private String producerId;
 
-    private String suscriberId;
+    private String subscriberId;
 
-    private Date createTime;
+    private Timestamp timestamp;
 
-    private Integer sign;
+    private String context;
 
-    private String content;
+    private int sign;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    private int id;
 
     public String getProducerId() {
         return producerId;
@@ -31,35 +24,43 @@ public class Chat {
         this.producerId = producerId;
     }
 
-    public String getSuscriberId() {
-        return suscriberId;
+    public String getSubscriberId() {
+        return subscriberId;
     }
 
-    public void setSuscriberId(String suscriberId) {
-        this.suscriberId = suscriberId;
+    public void setSubscriberId(String subscriberId) {
+        this.subscriberId = subscriberId;
     }
 
-    public Date getCreateTime() {
-        return createTime;
+    public Timestamp getTimestamp() {
+        return timestamp;
     }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
+    public void setTimestamp(Timestamp timestamp) {
+        this.timestamp = timestamp;
     }
 
-    public Integer getSign() {
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context;
+    }
+
+    public int getSign() {
         return sign;
     }
 
-    public void setSign(Integer sign) {
+    public void setSign(int sign) {
         this.sign = sign;
     }
 
-    public String getContent() {
-        return content;
+    public int getId() {
+        return id;
     }
 
-    public void setContent(String content) {
-        this.content = content;
+    public void setId(int id) {
+        this.id = id;
     }
 }

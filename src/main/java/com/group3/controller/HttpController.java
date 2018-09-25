@@ -80,5 +80,15 @@ public class HttpController {
     public String shoperPage() {
         return "shoper";
     }
+
+    @RequestMapping("/contact")
+    public String contactPage() {
+        return "contact";
+    }
+
+    @RequestMapping("/contact2")
+    public String contact2Page() {
+        return "contact2";
+    }
     
 }

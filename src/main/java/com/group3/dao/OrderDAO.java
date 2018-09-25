@@ -18,6 +18,8 @@ public interface OrderDAO {
 
     int insert(Order record);
 
+    int updateDealByOrderId(Order record);
+
     int insertSelective(Order record);
 
     Order selectByPrimaryKey(Integer orderId);

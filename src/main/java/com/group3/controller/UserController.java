@@ -144,8 +144,21 @@ public class UserController {
 			return ResponseInfoDTO.fail(MessageDTO.REGISTER_FAIL_3);
 		}
 
-
 	}
 
+
+
+	/**
+	 * 支付验证
+	 * telephone、password
+	 */
+	@PostMapping(value="/purchase")
+	public ResponseInfoDTO<UserInfo> passwordPerson(@RequestBody String params, HttpServletRequest request, HttpServletResponse response) {
+		UserInfo userInfo = JSON.parseObject(params, UserInfo.class);
+
+		ResponseInfoDTO<UserInfo> rpt = accountManageService.password(userInfo);
+
+		return rpt;
+	}
 
 }

@@ -50,4 +50,16 @@ public class OrderManageServiceImpl implements OrderManageService {
         List<Order> orderList = orderDAO.selectByShopOwner(ownerId);
         return ResponseInfoDTO.success(orderList);
     }
+
+    @Override
+    public ResponseInfoDTO<Order> updateOrderDealByOrderId(Order order) {
+
+        int flag = orderDAO.updateDealByOrderId(order);
+
+        if(flag == 1){
+            return ResponseInfoDTO.success(MessageDTO.SUCCESS);
+        }else{
+            return ResponseInfoDTO.fail("订单更新失败");
+        }
+    }
 }

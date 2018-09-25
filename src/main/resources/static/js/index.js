@@ -15,23 +15,7 @@ function indexUser(){
 }
 
 
-function AJAXFunction(objJson,URL) {
 
-    $.ajax({
-        type:"POST",
-        url: URL,
-        contentType: "application/json;charset=utf-8",
-        dataType: "json",
-        data: JSON.stringify(objJson),
-        async:true,
-        success: function (response) {
-            alert(response.data.name)
-        },
-        error: function (){
-            alert("当前网络不稳定......");
-        }
-    });
-}
 $(document).ready(function(){
     $(".loginMark").click(function(){
         $('.cover').fadeIn();
@@ -88,6 +72,10 @@ $(document).ready(function(){
     $('.products.dynamic').mouseout(function(){
         $(this).children('.product').css("backgroundColor", "#4f4e4e");
     });
+
+    var warningBox = $('<div class="warning-box">你好</div>');
+    $('body').append(warningBox);
+
 
     // 商品详情界面加减按钮响应
 
@@ -535,40 +523,65 @@ function buyGoods(obj) {
         if(!Cookies.get('UserObjJson')){
             alert("您还未登录");
         }else{
-            var totalPrice = parseFloat(price.substring(1))*parseInt(purchaseNumber) + "";
+            // 验证支付密码
+            var payPwd = prompt("请输入支付密码","");
+            var jsonValue = JSON.parse(Cookies.get('UserObjJson'));
 
-
-            var objJson = {
-                "goodsId":goodsId,
-                "purchaseNumber":purchaseNumber,
-                "shopId":shopId,
-                "totalPrice":totalPrice
+            var objJson1 = {
+                "telephone":jsonValue.telephone,
+                "password":payPwd
             };
 
-            var URL = "/order/make_order";
-
+            var URL1 = "/user/purchase";
             $.ajax({
                 type:"POST",
-                url: URL,
+                url: URL1,
                 contentType: "application/json;charset=utf-8",
                 dataType: "json",
-                data: JSON.stringify(objJson),
+                data: JSON.stringify(objJson1),
                 async:true,
                 success: function (response) {
+                    if(response.code == 1){
+
+                        var totalPrice = parseFloat(price.substring(1))*parseInt(purchaseNumber) + "";
+                        var objJson2 = {
+                            "goodsId":goodsId,
+                            "purchaseNumber":purchaseNumber,
+                            "shopId":shopId,
+                            "totalPrice":totalPrice
+                        };
+
+                        var URL2 = "/order/make_order";
+                        $.ajax({
+                            type:"POST",
+                            url: URL2,
+                            contentType: "application/json;charset=utf-8",
+                            dataType: "json",
+                            data: JSON.stringify(objJson2),
+                            async:true,
+                            success: function (response) {
+
+                                    showWarningBox(response.msg);
+                            },
+                            error: function (){
+                                showWarningBox("当前网络不稳定......");
+                            }
+                        });
 
 
-                    alert(response.msg);
+                    }else{
+                        showWarningBox(response.msg);
+                    }
+
                 },
                 error: function (){
-                    alert("当前网络不稳定......");
+                    showWarningBox("当前网络不稳定......");
                 }
             });
+
         }
 
-
     }
-
-
 
 }
 
@@ -576,7 +589,12 @@ function buyGoods(obj) {
 function addShoppingCar(obj) {
     console.log(obj.id);
 
+}
 
-
-
+function showWarningBox(tar) {
+    $('.warning-box').hide();
+    $('.warning-box').text(tar).fadeIn();
+    setTimeout(function(){
+        $('.warning-box').fadeOut();
+    },2000);
 }

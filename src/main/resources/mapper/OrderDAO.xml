@@ -201,4 +201,11 @@
       total_price = #{totalPrice,jdbcType=DOUBLE}
     where order_id = #{orderId,jdbcType=INTEGER}
   </update>
+
+
+  <update id="updateDealByOrderId" parameterType="com.group3.entity.Order">
+    update orders
+    set deal = #{deal,jdbcType=INTEGER}
+    where order_id = #{orderId,jdbcType=INTEGER}
+  </update>
 </mapper>

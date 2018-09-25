@@ -24,15 +24,13 @@ function checkCookies(){
         }
 
 
-        getUserInfo(jsonValue.telephone);
-
     }
 
 
 
 }
 
-/***************************商品上架*****************************/
+/***************************商家注册*****************************/
 function getShopImage(){
     $("#reg-shop-file").click();
     showImage("reg-shop-file","show-shop-img-1");
@@ -87,7 +85,12 @@ function shopRegister() {
 
     //创建json字符串
     var objJson = {};
-    objJson.ownerId = $('#reg-shop-telephone').val();
+
+    //从cookies获取拥有者
+    var jsonValue = JSON.parse(Cookies.get('UserObjJson'));
+    objJson.ownerId = jsonValue.telephone;
+
+
     objJson.shopName = $('#reg-shop-name').val();
     objJson.category = $('#reg-shop-category').val();
     objJson.idCard = $('#reg-shop-card').val();
@@ -116,7 +119,7 @@ function shopRegister() {
                 alert(response.msg);
 
                 //var openURL = "/login";
-                //window.open(openURL, "_self");
+                window.open("/shoper", "_self");
 
             } else {
                 alert('提交失败！');

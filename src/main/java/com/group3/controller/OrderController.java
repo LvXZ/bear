@@ -106,9 +106,27 @@ public class OrderController {
         }else {
             return ResponseInfoDTO.fail("登录已经失效，请您重新登录");
         }
-
-
     }
 
+
+    /**
+     * 更新订单的deal
+     *
+     */
+    @PostMapping(value="/update_order")
+    public ResponseInfoDTO<Order> updateOrder(@RequestBody String params,HttpServletRequest request, HttpServletResponse response) {
+
+        String userCookiesValue = CookieUtil.getCookieUserInfoJson(request);
+
+        if(userCookiesValue != null){
+
+            Order order = JSON.parseObject(params, Order.class);
+
+            return orderManageService.updateOrderDealByOrderId(order);
+
+        }else {
+            return ResponseInfoDTO.fail("登录已经失效，请您重新登录");
+        }
+    }
 
 }

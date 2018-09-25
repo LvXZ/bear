@@ -1,122 +1,46 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.group3.dao.ChatDAO">
+
   <resultMap id="BaseResultMap" type="com.group3.entity.Chat">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="producer_id" jdbcType="VARCHAR" property="producerId" />
-    <result column="suscriber_id" jdbcType="VARCHAR" property="suscriberId" />
-    <result column="create_time" jdbcType="TIME" property="createTime" />
+    <result column="suscriber_id" jdbcType="VARCHAR" property="subscriberId" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="timestamp" />
+    <result column="content" jdbcType="VARCHAR" property="context" />
     <result column="sign" jdbcType="INTEGER" property="sign" />
   </resultMap>
-  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.group3.entity.Chat">
-    <result column="content" jdbcType="LONGVARCHAR" property="content" />
-  </resultMap>
+
   <sql id="Base_Column_List">
-    id, producer_id, suscriber_id, create_time, sign
+    id,producer_id,suscriber_id,create_time,content,sign
   </sql>
-  <sql id="Blob_Column_List">
-    content
-  </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
-    select 
+
+  <select id="getUnRead" resultMap="BaseResultMap">
+    select
     <include refid="Base_Column_List" />
-    ,
-    <include refid="Blob_Column_List" />
     from chat
-    where id = #{id,jdbcType=INTEGER}
+    where suscriber_id = #{producerId,jdbcType=VARCHAR} and producer_id = #{subscriberId,jdbcType=VARCHAR}  and sign = 0
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from chat
-    where id = #{id,jdbcType=INTEGER}
-  </delete>
-  <insert id="insert" parameterType="com.group3.entity.Chat">
-    insert into chat (id, producer_id, suscriber_id, 
-      create_time, sign, content
-      )
-    values (#{id,jdbcType=INTEGER}, #{producerId,jdbcType=VARCHAR}, #{suscriberId,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIME}, #{sign,jdbcType=INTEGER}, #{content,jdbcType=LONGVARCHAR}
-      )
+
+  <insert id="produceRead" parameterType="com.group3.entity.Chat">
+    insert into chat (producer_id,suscriber_id,create_time,content,sign)
+    values (#{producerId,jdbcType=VARCHAR},#{subscriberId,jdbcType=VARCHAR},#{timestamp,jdbcType=TIMESTAMP},
+    #{context,jdbcType=VARCHAR},#{sign,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.group3.entity.Chat">
-    insert into chat
-    <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
-      <if test="producerId != null">
-        producer_id,
-      </if>
-      <if test="suscriberId != null">
-        suscriber_id,
-      </if>
-      <if test="createTime != null">
-        create_time,
-      </if>
-      <if test="sign != null">
-        sign,
-      </if>
-      <if test="content != null">
-        content,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
-      <if test="producerId != null">
-        #{producerId,jdbcType=VARCHAR},
-      </if>
-      <if test="suscriberId != null">
-        #{suscriberId,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        #{createTime,jdbcType=TIME},
-      </if>
-      <if test="sign != null">
-        #{sign,jdbcType=INTEGER},
-      </if>
-      <if test="content != null">
-        #{content,jdbcType=LONGVARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.group3.entity.Chat">
+
+  <update id = "updateSign">
     update chat
     <set>
-      <if test="producerId != null">
-        producer_id = #{producerId,jdbcType=VARCHAR},
-      </if>
-      <if test="suscriberId != null">
-        suscriber_id = #{suscriberId,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null">
-        create_time = #{createTime,jdbcType=TIME},
-      </if>
-      <if test="sign != null">
-        sign = #{sign,jdbcType=INTEGER},
-      </if>
-      <if test="content != null">
-        content = #{content,jdbcType=LONGVARCHAR},
-      </if>
+      sign = 1
     </set>
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.group3.entity.Chat">
-    update chat
-    set producer_id = #{producerId,jdbcType=VARCHAR},
-      suscriber_id = #{suscriberId,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIME},
-      sign = #{sign,jdbcType=INTEGER},
-      content = #{content,jdbcType=LONGVARCHAR}
-    where id = #{id,jdbcType=INTEGER}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.group3.entity.Chat">
-    update chat
-    set producer_id = #{producerId,jdbcType=VARCHAR},
-      suscriber_id = #{suscriberId,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIME},
-      sign = #{sign,jdbcType=INTEGER}
-    where id = #{id,jdbcType=INTEGER}
+    where  producer_id = #{subscriberId,jdbcType=VARCHAR} and suscriber_id = #{producerId,jdbcType=VARCHAR}
   </update>
 
+  <select id="getHistoryInfo" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from chat
+    where (producer_id = #{producerId} and suscriber_id = #{subscriberId} and create_time &gt; #{startTime} and create_time &lt; #{endTime})
+    or (producer_id = #{subscriberId} and suscriber_id = #{producerId} and create_time &gt; #{startTime} and create_time &lt; #{endTime})
+  </select>
 </mapper>
